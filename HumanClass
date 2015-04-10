@@ -1,0 +1,214 @@
+package kw7hv.cs2110.virginia.edu.myapp;
+
+import android.graphics.Rect;
+
+/**
+ * Created by Kevin on 4/7/2015.
+ */
+public class Human {
+    private float x;
+    private float y;
+    private float xo;
+    private float yo;
+    private float x2;
+    private float y2;
+    private int speed;
+    private Rect hitbox;
+    private int facing;
+    public Human(int x, int y){
+        this.x = xo = x;
+        this.y = yo = y;
+        speed = 20;
+        hitbox = new Rect((int)this.x+10,(int)this.y+20,(int)this.x+25,(int)this.y+40);
+    }
+    public float getX2() {
+        return x2;
+    }
+    public void setX2(float x2) {
+        this.x2 = x2;
+    }
+    public float getY2() {
+        return y2;
+    }
+    public void setY2(float y2) {
+        this.y2 = y2;
+    }
+    public float getY() {
+        return y;
+    }
+    public void setY(float y) {
+        this.y = y;
+    }
+    public float getX() {
+        return x;
+    }
+    public void setX(float x) {
+        this.x = x;
+    }
+    public float getXo() {
+        return xo;
+    }
+    public void setXo(float xo) {
+        this.xo = xo;
+    }
+    public float getYo() {
+        return yo;
+    }
+    public void setYo(float yo) {
+        this.yo = yo;
+    }
+    public int getSpeed() {
+        return speed;
+    }
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    public Rect getHitbox() {
+        return hitbox;
+    }
+    public void setHitbox(Rect hitbox) {
+        this.hitbox = hitbox;
+    }
+    public void setX(int x) {
+        this.x = x;
+    }
+    public int getFacing() {
+        return facing;
+    }
+    public void setFacing(int facing) {
+        this.facing = facing;
+    }
+    public void move(float elapsedTime){
+        xo = x;
+        yo = y;
+        if (x2==x&&y2==y){
+        } else if (x2<x&&y2==y){
+            x = x-(speed*elapsedTime);
+            hitbox.offsetTo((int)x,(int)y);
+            facing = 1;
+        } else if (x2>x&&y2==y){
+            x = x+(speed*elapsedTime);
+            hitbox.offsetTo((int)x,(int)y);
+            facing = 0;
+        } else if (x2==x&&y2<y){
+            y = y-(speed*elapsedTime);
+            hitbox.offsetTo((int)x,(int)y);
+            facing = 2;
+        } else if (x2==x&&y2>y){
+            y = y+(speed*elapsedTime);
+            hitbox.offsetTo((int)x,(int)y);
+            facing = 3;
+        } else if (x2<x&&y2<y){
+            x = x-(speed*elapsedTime);
+            y = y-(speed*elapsedTime);
+            hitbox.offsetTo((int)x,(int)y);
+            facing = 1;
+        } else if (x2>x&&y2<y){
+            x = x+(speed*elapsedTime);
+            y = y-(speed*elapsedTime);
+            hitbox.offsetTo((int)x,(int)y);
+            facing = 0;
+        } else if (x2<x&&y2>y){
+            x = x-(speed*elapsedTime);
+            y = y+(speed*elapsedTime);
+            hitbox.offsetTo((int)x,(int)y);
+            facing = 1;
+        } else if (x2>x&&y2>y){
+            x = x+(speed*elapsedTime);
+            y = y+(speed*elapsedTime);
+            hitbox.offsetTo((int)x,(int)y);
+            facing = 0;
+        }
+    }
+    public boolean colLeft(Rect r){
+        double x = hitbox.left;
+        double y = hitbox.top;
+        double w = hitbox.width();
+        double h = hitbox.height();
+        double rx = r.left;
+        double ry = r.top;
+        double rw = r.width();
+        double rh = r.height();
+        if ((x+w==rx)&&(y+h>=ry&&y<=ry+rh)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean colRight(Rect r){
+        double x = hitbox.left;
+        double y = hitbox.top;
+        double w = hitbox.width();
+        double h = hitbox.height();
+        double rx = r.left;
+        double ry = r.top;
+        double rw = r.width();
+        double rh = r.height();
+        if ((rx+rw==x)&&(y+h>=ry&&y<=ry+rh)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean colTop(Rect r){
+        double x = hitbox.left;
+        double y = hitbox.top;
+        double w = hitbox.width();
+        double h = hitbox.height();
+        double rx = r.left;
+        double ry = r.top;
+        double rw = r.width();
+        double rh = r.height();
+        if ((y+h==ry)&&(x+w>=rx&&x<=rx+rw)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean colBottom(Rect r){
+        double x = hitbox.left;
+        double y = hitbox.top;
+        double w = hitbox.width();
+        double h = hitbox.height();
+        double rx = r.left;
+        double ry = r.top;
+        double rw = r.width();
+        double rh = r.height();
+        if ((ry+rh==y)&&(x+w>=rx&&x<=rx+rw)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean colX(Rect r){
+        double x = hitbox.left;
+        double y = hitbox.top;
+        double w = hitbox.width();
+        double h = hitbox.height();
+        double rx = r.left;
+        double ry = r.top;
+        double rw = r.width();
+        double rh = r.height();
+        if ((x+w==rx||rx+rw==x)&&(y+h>=ry&&y<=ry+rh)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean colY(Rect r){
+        double x = hitbox.left;
+        double y = hitbox.top;
+        double w = hitbox.width();
+        double h = hitbox.height();
+        double rx = r.left;
+        double ry = r.top;
+        double rw = r.width();
+        double rh = r.height();
+        if ((y+h==ry||ry+rh==y)&&(x+w>=rx&&x<=rx+rw)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}
